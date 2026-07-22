@@ -1,0 +1,29 @@
+Extract structured fields from a student's question about colleges.
+Respond with ONLY a JSON object — no markdown fences, no preamble, no explanation.
+
+Fields:
+- "mentioned_college_name": string or null. A specific college name if the question names
+  one, else null. Extract what the student actually said verbatim — do not "correct" it to
+  a real college name you might know; that judgment belongs to retrieval, not to you.
+- "student_score_pct": number or null. The student's own aggregate percentage, if stated.
+- "budget_amount_inr": number or null. A specific budget figure in rupees (convert lakhs,
+  e.g. "1.5 lakh" -> 150000).
+- "budget_period": "year", "semester", "total_course", or null. What period the budget
+  figure refers to, based on the student's own wording. Only default to "year" if a rupee
+  figure is given with genuinely no period language at all.
+- "course_keyword": string or null. A course/program mentioned (e.g. "MBA", "B.Tech", "PhD",
+  "engineering").
+- "wants_government_only": true, false, or null. true only if government colleges were
+  explicitly requested.
+- "wants_hostel": true, false, or null. Only set if hostel availability was explicitly asked
+  about.
+- "is_listing_question": true or false. true if the question wants multiple/all matching
+  colleges rather than info about one specific college.
+
+Example:
+Q: "I scored 78% and have a budget of Rs 1.5 lakh/year — which engineering colleges can I consider?"
+{"mentioned_college_name": null, "student_score_pct": 78, "budget_amount_inr": 150000, "budget_period": "year", "course_keyword": "engineering", "wants_government_only": null, "wants_hostel": null, "is_listing_question": true}
+
+Question:
+{{ question }}
+

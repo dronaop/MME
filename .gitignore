@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+metrics.log
+answers.md
+.chroma/
+.env

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "eval01_cutoff_hard_floor",
+    "question": "I scored 65% in my boards. Am I eligible for North Ridge Institute of Technology?",
+    "expected_answered": true,
+    "expected_citations": ["C001"],
+    "expected_keywords": ["82"],
+    "note": "Cutoff (82%) is a hard floor; 65% is below it, so the model must say the student is NOT eligible."
+  },
+  {
+    "id": "eval02_placement_zero_not_worst",
+    "question": "What is the average placement package at Nainital Institute of Medical Sciences?",
+    "expected_answered": true,
+    "expected_citations": ["C006"],
+    "expected_keywords": ["not reported"],
+    "note": "avg_placement_lpa=0 must be explained as 'not reported', never as worst placements."
+  },
+  {
+    "id": "eval03_diploma_not_degree",
+    "question": "Does Shivalik Government Polytechnic offer any engineering degree programs?",
+    "expected_answered": true,
+    "expected_citations": ["C005"],
+    "expected_keywords": ["diploma"],
+    "note": "C005 offers only Diplomas, which are explicitly not degrees per the data dictionary."
+  },
+  {
+    "id": "eval04_per_semester_conversion",
+    "question": "My budget is Rs 75,000 per semester for Himalayan College of Engineering. Can I afford the tuition?",
+    "expected_answered": true,
+    "expected_citations": ["C003"],
+    "expected_keywords": ["semester"],
+    "note": "annual_fees_inr is per year (Rs 1,32,000); must be explicitly converted/flagged, not silently misapplied."
+  },
+  {
+    "id": "eval05_similar_names_disambiguation",
+    "question": "What courses does Ganga Institute of Commerce offer?",
+    "expected_answered": true,
+    "expected_citations": ["C014"],
+    "forbidden_citations": ["C002"],
+    "note": "Must not conflate with the similarly-named Ganga Valley University (C002)."
+  },
+  {
+    "id": "eval06_unanswerable_missing_field",
+    "question": "What is the faculty-to-student ratio at Doon Business School?",
+    "expected_answered": false,
+    "expected_citations": [],
+    "note": "This field does not exist in the dataset; the system must refuse rather than guess."
+  },
+  {
+    "id": "eval07_unanswerable_nonexistent_college",
+    "question": "What are the annual fees at Wonder International Institute?",
+    "expected_answered": false,
+    "expected_citations": [],
+    "note": "No such college exists in the dataset."
+  },
+  {
+    "id": "eval08_costs_beyond_tuition",
+    "question": "I have exactly Rs 1,45,000 for North Ridge Institute of Technology's total annual cost, including hostel. Is that enough?",
+    "expected_answered": true,
+    "expected_citations": ["C001"],
+    "expected_keywords": ["mess"],
+    "note": "Rs 1,45,000 covers tuition only; hostel/mess charges are extra per the 'about' field, so budget is likely insufficient."
+  },
+  {
+    "id": "eval09_government_hostel_listing_complete",
+    "question": "List the government colleges that have hostel facilities.",
+    "expected_answered": true,
+    "expected_citations": ["C007", "C012"],
+    "forbidden_citations": ["C005"],
+    "note": "C005 is Government but hostel_available=No; must not appear. Must be an exhaustive list, not a semantic top-k sample."
+  },
+  {
+    "id": "eval10_multi_course_filter",
+    "question": "Which colleges offer both a BBA and an MBA?",
+    "expected_answered": true,
+    "expected_citations": ["C002", "C004"],
+    "forbidden_citations": ["C014"],
+    "note": "C014 offers BBA but not MBA; must be excluded despite course-list overlap."
+  }
+]
