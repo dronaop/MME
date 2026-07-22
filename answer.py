@@ -1,27 +1,3 @@
-#!/usr/bin/env python3
-"""
-Usage:
-    pip install -r requirements.txt
-    export GROQ_API_KEY=...
-    python answer.py "Which colleges offer an MBA, and what do they cost?"
-
-Prints exactly one JSON object to stdout:
-    {"answer": "...", "citations": [...], "answered": true|false, "reason_if_unanswered": null|"..."}
-
-All logging/diagnostics go to stderr so stdout stays parseable.
-
-Pipeline: two LLM calls per question, not one.
-    1. query_parser.parse_query()  — cheap, narrow: extract structured intent
-       from the raw question (student's score, budget + its period, a named
-       college, etc). See src/query_parser.py for why this exists.
-    2. The main generation call — same as before, except it now also
-       receives src/checks.py's code-computed eligibility/budget facts
-       inline, so it reports pre-verified numbers instead of redoing that
-       arithmetic itself.
-If step 1 finds a college name that matches nothing in the dataset, we
-skip step 2 entirely and refuse immediately — cheaper and more reliable
-than trusting the generation model to notice and self-refuse.
-"""
 import json
 import sys
 
