@@ -75,8 +75,6 @@ class ChromaIndex:
 def _course_matches(record, keyword):
     keyword = keyword.lower()
     # NOTE: a Diploma is explicitly NOT a degree per the data dictionary.
-    # We surface diploma-only programs separately rather than silently
-    # folding them into e.g. "engineering colleges" — see README.
     return any(keyword in c.lower() for c in record["courses_offered"])
 
 
